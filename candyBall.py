@@ -1,6 +1,10 @@
+import random
+
 class CandyBall:
-    def __init__(self, coordinate):
-        self.move(coordinate)
+    def __init__(self):
+        x = random.randrange(0,25)
+        y = random.randrange(0,25)
+        self.move((x, y))
     
     def coordinate(self):
         return self.__coordinate
