@@ -37,4 +37,4 @@ Ook zou ik twee nieuwe klasses moeten maken:
 * Klasse GamePong:
     * Hierin zou de game logica van Pong moeten gemaakt worden.
 * Klasse PongPallet:
-    * Hierin zou del ogica voor de palletjes van Pong moeten zitten.
+    * Hierin zou de logica voor de palletjes van Pong moeten zitten.
