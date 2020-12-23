@@ -12,12 +12,12 @@ class Snake:
         self.__snake = DoubleLinkedList()
         self.__direction = Direction.RIGHT
         self.__length = 0
-        self.add(x, y)
-        self.add()
+        self.move(x, y)
+        self.move()
     
-    def add(self, x = None, y = None):
+    def move(self, x = None, y = None):
         if x == None and y == None:
-            (x, y) = self.__snake.front().get()
+            (x, y) = self.__snake.front()
         
         if self.__direction == Direction.LEFT:
             self.__snake.addFront((x - 1, y))
@@ -27,7 +27,8 @@ class Snake:
             self.__snake.addFront((x, y - 1))
         elif self.__direction == Direction.RIGHT:
             self.__snake.addFront((x + 1, y))
-        
+    
+    def removeBack(self):
         self.__snake.removeBack()
     
     def changeDirection(self, direction):
