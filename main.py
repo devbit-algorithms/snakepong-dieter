@@ -5,9 +5,12 @@ import pygame
 game = Game()
 game.start()
 clock = pygame.time.Clock()
-
-while True:
+loop = True
+while loop:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            loop = False
     game.update()
-    clock.tick(1)
+    clock.tick(10)
 
 pygame.quit()
