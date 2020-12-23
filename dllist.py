@@ -62,3 +62,9 @@ class DoubleLinkedList:
         node.prev().setNext(node.next())
         node.next().setPrev(node.prev())
         return node.get()
+    
+    def removeBack(self):
+        node = self.__trailer.prev()
+        node.prev().setNext(node.next())
+        node.next().setPrev(node.prev())
+        return node.get()
