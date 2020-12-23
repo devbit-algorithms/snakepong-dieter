@@ -8,7 +8,7 @@
 # Plan of action
 Hieronder vind je mijn stappenplan in het maken van SnakePong.
 ## Stap 1: Snake
-Eerst en vooral wil ik een werkende Snake maken. Eventueel met het gebruik van Pygame om tetekenen. Voor Snake heb ik de volgende klassen nodig:
+Eerst en vooral wil ik een werkende Snake maken. Eventueel met het gebruik van Pygame om te tekenen. Voor Snake heb ik de volgende klassen nodig:
 
 * Klasse Game:
     * Hierin zou de game logica van Snake moeten gemaakt worden.
