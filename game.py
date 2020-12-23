@@ -1,18 +1,19 @@
 from snake import Snake
+from draw import Draw
 
 import time
+
+import pygame
 
 class Game:
     def start(self):
         self.__snake = Snake(10,60)
-        self.__startTime = time.perf_counter()
+        self.__draw = Draw()
     
     def update(self):
-        if time.perf_counter() - self.__startTime > 0.8:
-            self.__snake.move()
-            self.__snake.removeBack()
-            self.__startTime = time.perf_counter()
-            print("Snake moves")
+        self.__snake.move()
+        self.__snake.removeBack()
+        self.__draw.draw(self.__snake)
     
     def stop(self):
         return

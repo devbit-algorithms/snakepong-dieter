@@ -53,6 +53,9 @@ class DoubleLinkedList:
 
     def front(self):
         return self.__header.next().get()
+    
+    def getFrontNode(self):
+        return self.__header.next()
 
     def back(self):
         return self.__trailer.prev().get()

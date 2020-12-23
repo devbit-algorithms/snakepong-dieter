@@ -20,16 +20,19 @@ class Snake:
             (x, y) = self.__snake.front()
         
         if self.__direction == Direction.LEFT:
-            self.__snake.addFront((x - 1, y))
+            self.__snake.addFront((x - 20, y))
         elif self.__direction == Direction.DOWN:
-            self.__snake.addFront((x, y + 1))
+            self.__snake.addFront((x, y + 20))
         elif self.__direction == Direction.UP:
-            self.__snake.addFront((x, y - 1))
+            self.__snake.addFront((x, y - 20))
         elif self.__direction == Direction.RIGHT:
-            self.__snake.addFront((x + 1, y))
+            self.__snake.addFront((x + 20, y))
     
     def removeBack(self):
         self.__snake.removeBack()
+
+    def get(self):
+        return self.__snake
     
     def changeDirection(self, direction):
         self.__direction = direction
