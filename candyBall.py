@@ -1,5 +1,8 @@
 import random
 import math
+import pygame
+
+GAMEOVER = pygame.USEREVENT  + 1
 
 class CandyBall:
     def __init__(self):
@@ -30,9 +33,9 @@ class CandyBall:
     def bounceOfWalls(self):
         (x, y) = self.__coordinate
         if(x < 0 and self.__angle > 180):
-            self.__angle = 360 - self.__angle
+            pygame.event.post(pygame.event.Event(GAMEOVER))
         elif(x > 24 and self.__angle < 180):
-            self.__angle = 360 - self.__angle
+            pygame.event.post(pygame.event.Event(GAMEOVER))
         elif(y > 24 and (self.__angle < 90 or self.__angle > 270)):
             self.__angle = 180 - self.__angle
             if(self.__angle < 0):
