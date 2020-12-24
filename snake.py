@@ -1,4 +1,5 @@
 from dllist import DoubleLinkedList
+from draw import Draw
 from enum import Enum
 
 class Direction (Enum):
@@ -63,11 +64,11 @@ class Snake:
         (x, y) = self.__snake.front()
         if(x < 0 and self.__direction == Direction.LEFT):
             return True
-        elif(x > 24 and self.__direction == Direction.RIGHT):
+        elif(x >= Draw.WIDTH/Draw.PIXEL_SIZE and self.__direction == Direction.RIGHT):
             return True
         elif(y < 0 and self.__direction == Direction.UP):
             return True
-        elif(y > 24 and self.__direction == Direction.DOWN):
+        elif(y >= Draw.HEIGHT/Draw.PIXEL_SIZE and self.__direction == Direction.DOWN):
             return True
         else:
             return False

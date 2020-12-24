@@ -12,8 +12,11 @@ import math
 GAMEOVER = pygame.USEREVENT  + 1
 
 class Game:
+    START_X = 1
+    START_Y = 3
+
     def start(self):
-        self.__snake = Snake(1,3)
+        self.__snake = Snake(self.START_X, self.START_Y)
         self.__draw = Draw()
         self.__candy = CandyBall()
         self.__pongPallet = PongPallet()
@@ -32,7 +35,7 @@ class Game:
         if keys[pygame.K_RIGHT]:
             self.__snake.changeDirection(Direction.RIGHT)
         
-        if time.perf_counter() - self.__startTime > 0.2:
+        if time.perf_counter() - self.__startTime > 0.1:
             self.__snake.move()
             if(not self.__candyEaten()):
                 self.__snake.removeBack()
@@ -40,12 +43,13 @@ class Game:
                 self.__candy = CandyBall()
             if(self.__snake.collision() or self.__snake.collisionWalls() or self.collisionPallet()):
                 pygame.event.post(pygame.event.Event(GAMEOVER))
-            self.__draw.draw(self.__snake, self.__candy, self.__pongPallet)
             self.__startTime = time.perf_counter()
-        if time.perf_counter() - self.__startTimePallet > 0.5:
+        self.__draw.draw(self.__snake, self.__candy, self.__pongPallet)
+        
+        if time.perf_counter() - self.__startTimePallet > 0.1:
             self.__pongPallet.move(self.__candy.coordinate())
             self.__startTimePallet = time.perf_counter()
-        if time.perf_counter() - self.__startTimeBall > 0.3:
+        if time.perf_counter() - self.__startTimeBall > 0.05:
             self.__candy.move()
             self.bounceCandy()
             self.__startTimeBall = time.perf_counter()
@@ -64,17 +68,17 @@ class Game:
         (x, y) = self.__snake.get().front()
         yPallet = self.__pongPallet.get()
         if x == 1:
-            if y < (yPallet + 5) and y > yPallet:
+            if y < (yPallet + Draw.PALLET_LENGTH) and y > yPallet: #!!!!!
                 return True
         return False
     
     def bounceCandy(self):
         (x, y) = self.__candy.coordinate()
         yPallet = self.__pongPallet.get()
-        if x < 1:
+        if round(x) < 1:
             pygame.event.post(pygame.event.Event(GAMEOVER))
-        elif x < 2:
-            if y < (yPallet + 6) and y > yPallet:
+        elif round(x) < 2:
+            if y < (yPallet + Draw.PALLET_LENGTH) and y > yPallet:
                 angle = self.__candy.getAngle()
                 angle = 360 - angle
                 self.__candy.setAngle(angle)
