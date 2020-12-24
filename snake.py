@@ -35,17 +35,40 @@ class Snake:
         return self.__snake
     
     def changeDirection(self, direction):
-        self.__direction = direction
+        if direction == Direction.RIGHT and self.__direction == Direction.LEFT:
+            return
+        elif direction == Direction.UP and self.__direction == Direction.DOWN:
+            return
+        elif direction == Direction.DOWN and self.__direction == Direction.UP:
+            return
+        elif direction == Direction.LEFT and self.__direction == Direction.RIGHT:
+            return
+        else:
+            self.__direction = direction
     
     def collision(self):
-        _Node = self.__snake.front()
+        _Node = self.__snake.getFrontNode()
         coordinates = []
         while _Node.next() is not None:
             coordinates.append(_Node.get())
             _Node = _Node.next()
+        _Node = self.__snake.getFrontNode()
         while _Node.next() is not None:
             if coordinates.count(_Node.get()) > 1:
                 return True
             _Node = _Node.next()
         return False
+
+    def collisionWalls(self):
+        (x, y) = self.__snake.front()
+        if(x < 0 and self.__direction == Direction.LEFT):
+            return True
+        elif(x > 24 and self.__direction == Direction.RIGHT):
+            return True
+        elif(y < 0 and self.__direction == Direction.UP):
+            return True
+        elif(y > 24 and self.__direction == Direction.DOWN):
+            return True
+        else:
+            return False
 
