@@ -31,6 +31,7 @@ class Game:
         
         if time.perf_counter() - self.__startTime > 0.1:
             self.__snake.move()
+            self.__candy.move()
             if(not self.__candyEaten()):
                 self.__snake.removeBack()
             else:
@@ -46,7 +47,7 @@ class Game:
     def __candyEaten(self):
         (xSnake, ySnake) = self.__snake.get().front()
         (xCandy, yCandy) = self.__candy.coordinate()
-        if xCandy == xSnake and yCandy == ySnake:
+        if xCandy - (xCandy%1) == xSnake and yCandy - (yCandy%1) == ySnake:
             return True
         return False
     
