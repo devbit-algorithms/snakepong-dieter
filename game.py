@@ -2,6 +2,7 @@ from snake import Snake
 from draw import Draw
 from snake import Direction
 from candyBall import CandyBall
+from pongPallet import PongPallet
 
 import time
 
@@ -14,6 +15,7 @@ class Game:
         self.__snake = Snake(1,3)
         self.__draw = Draw()
         self.__candy = CandyBall()
+        self.__pongPallet = PongPallet()
         self.__startTime = time.perf_counter()
     
     def update(self):
@@ -35,7 +37,7 @@ class Game:
                 self.__candy = CandyBall()
             if(self.__snake.collision() or self.__snake.collisionWalls()):
                 pygame.event.post(pygame.event.Event(GAMEOVER))
-            self.__draw.draw(self.__snake, self.__candy)
+            self.__draw.draw(self.__snake, self.__candy, self.__pongPallet)
             self.__startTime = time.perf_counter()
     
     def stop(self):
