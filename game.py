@@ -35,7 +35,7 @@ class Game:
                 self.__snake.removeBack()
             else:
                 self.__candy = CandyBall()
-            if(self.__snake.collision() or self.__snake.collisionWalls()):
+            if(self.__snake.collision() or self.__snake.collisionWalls() or self.collisionPallet()):
                 pygame.event.post(pygame.event.Event(GAMEOVER))
             self.__draw.draw(self.__snake, self.__candy, self.__pongPallet)
             self.__startTime = time.perf_counter()
@@ -48,4 +48,12 @@ class Game:
         (xCandy, yCandy) = self.__candy.coordinate()
         if xCandy == xSnake and yCandy == ySnake:
             return True
+        return False
+    
+    def collisionPallet(self):
+        (x, y) = self.__snake.get().front()
+        yPallet = self.__pongPallet.get()
+        if x == 0:
+            if y < (yPallet + 5) and y > yPallet:
+                return True
         return False
