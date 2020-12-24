@@ -17,6 +17,7 @@ class Game:
         self.__candy = CandyBall()
         self.__pongPallet = PongPallet()
         self.__startTime = time.perf_counter()
+        self.__startTimePallet = time.perf_counter()
     
     def update(self):
         keys = pygame.key.get_pressed()
@@ -32,14 +33,18 @@ class Game:
         if time.perf_counter() - self.__startTime > 0.1:
             self.__snake.move()
             self.__candy.move()
+            self.collisionPalletCandy()
             if(not self.__candyEaten()):
                 self.__snake.removeBack()
             else:
                 self.__candy = CandyBall()
-            if(self.__snake.collision() or self.__snake.collisionWalls() or self.collisionPallet()):
+            if(self.__snake.collision() or self.__snake.collisionWalls() or self.collisionPalletSnake()):
                 pygame.event.post(pygame.event.Event(GAMEOVER))
             self.__draw.draw(self.__snake, self.__candy, self.__pongPallet)
             self.__startTime = time.perf_counter()
+        if time.perf_counter() - self.__startTimePallet > 0.5:
+            self.__pongPallet.move(self.__candy.coordinate())
+            self.__startTimePallet = time.perf_counter()
     
     def stop(self):
         return
@@ -51,10 +56,19 @@ class Game:
             return True
         return False
     
-    def collisionPallet(self):
+    def collisionPalletSnake(self):
         (x, y) = self.__snake.get().front()
         yPallet = self.__pongPallet.get()
-        if x == 0:
+        if x == 1:
             if y < (yPallet + 5) and y > yPallet:
                 return True
         return False
+    
+    def collisionPalletCandy(self):
+        (x, y) = self.__candy.coordinate()
+        yPallet = self.__pongPallet.get()
+        if x < 1:
+            if y < (yPallet + 6) and y > yPallet:
+                angle = self.__candy.getAngle()
+                angle = 360 - angle
+                self.__candy.setAngle(angle)

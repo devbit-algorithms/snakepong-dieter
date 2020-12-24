@@ -16,5 +16,5 @@ class Draw:
         (x,y) = candy.coordinate()
         pygame.draw.ellipse(self.screen, (0,0,255), (20*x, 20*y, 20, 20))
         y = pongPallet.get()
-        pygame.draw.rect(self.screen, (255,0,0), (0, 20*y, 20, 100))
+        pygame.draw.rect(self.screen, (255,0,0), (0, 20*y, 20, 120))
         pygame.display.update()

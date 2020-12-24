@@ -41,3 +41,9 @@ class CandyBall:
             self.__angle = 180 - self.__angle
             if(self.__angle < 0):
                 self.__angle = 180 + (360 - (-1*self.__angle + 180))
+    
+    def getAngle(self):
+        return self.__angle
+    
+    def setAngle(self, angle):
+        self.__angle = angle
