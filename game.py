@@ -10,6 +10,7 @@ import pygame
 import math
 
 GAMEOVER = pygame.USEREVENT  + 1
+POINT_USER = pygame.USEREVENT  + 2
 
 class Game:
     START_X = 1
@@ -67,8 +68,8 @@ class Game:
     def collisionPallet(self):
         (x, y) = self.__snake.get().front()
         yPallet = self.__pongPallet.get()
-        if x == 1:
-            if y < (yPallet + Draw.PALLET_LENGTH) and y > yPallet: #!!!!!
+        if x == 0:
+            if y < (yPallet + Draw.PALLET_LENGTH) and y > yPallet:
                 return True
         return False
     
@@ -81,6 +82,10 @@ class Game:
             if y < (yPallet + Draw.PALLET_LENGTH) and y > yPallet:
                 angle = self.__candy.getAngle()
                 angle = 360 - angle
+                if self.__pongPallet.getDirection() == Direction.UP:
+                    angle += 20
+                elif self.__pongPallet.getDirection() == Direction.DOWN:
+                    angle -= 20
                 self.__candy.setAngle(angle)
         else:
             _Node = self.__snake.get().getFrontNode()
@@ -88,9 +93,25 @@ class Game:
             while _Node.next() is not None:
                 coordinates.append(_Node.get())
                 _Node = _Node.next()
-            x = round(x)
-            y = round(y)
-            if coordinates.count((x,y)) >= 1:
-                angle = self.__candy.getAngle()
-                angle = 360 - angle
-                self.__candy.setAngle(angle)
+            if self.__snake.getDirection() == Direction.UP or self.__snake.getDirection() == Direction.DOWN:
+                self.testForCollisionInX(coordinates)
+            elif self.__snake.getDirection() == Direction.LEFT or self.__snake.getDirection() == Direction.RIGHT:
+                self.testForCollisionInY(coordinates)
+        
+    def testForCollisionInX(self, coordinates):
+        (x, y) = self.__candy.coordinate()
+        x = round(x)
+        y = round(y)
+        if coordinates.count((x + 1,y)) >= 1 or coordinates.count((x - 1,y)):
+            angle = self.__candy.getAngle()
+            angle = 360 - angle
+            self.__candy.setAngle(angle)
+
+    def testForCollisionInY(self, coordinates):
+        (x, y) = self.__candy.coordinate()
+        x = round(x)
+        y = round(y)
+        if coordinates.count((x, y + 1)) >= 1 or coordinates.count((x, y - 1)):
+            angle = self.__candy.getAngle()
+            angle = 180 - angle
+            self.__candy.setAngle(angle)
