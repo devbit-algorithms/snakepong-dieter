@@ -11,6 +11,7 @@ class Draw:
     PALLET_COLOR = (255,0,0)
     ACTIVE_BUTTON_COLOR = (255,255,255)
     NON_ACTIVE_BUTTON_COLOR = (128,128,128)
+    BLACK_COLOR = (0, 0, 0)
 
 
     def __init__(self):
@@ -49,6 +50,31 @@ class Draw:
         else:
             PlayText = self.myfont.render('PLAY', False, self.NON_ACTIVE_BUTTON_COLOR)
             self.screen.blit(PlayText,(self.WIDTH/3, self.HEIGHT/5))
+
+            ExitText = self.myfont.render('EXIT', False, self.ACTIVE_BUTTON_COLOR)
+            self.screen.blit(ExitText,(self.WIDTH/3, (self.HEIGHT/5)*3))
+        pygame.display.update()
+    
+    def drawScore(self, score, exitActive):
+        self.screen.fill((0, 0, 0))
+        if not exitActive:
+            self.myfont = pygame.font.SysFont('Comic Sans MS', round(self.HEIGHT/10))
+            ScoreText = self.myfont.render('Your score is:', False, self.NON_ACTIVE_BUTTON_COLOR)
+            Score = self.myfont.render(str(score), False, self.NON_ACTIVE_BUTTON_COLOR)
+            self.screen.blit(ScoreText,(self.WIDTH/3, self.HEIGHT/10))
+            self.screen.blit(Score,(self.WIDTH/3, self.HEIGHT/5))
+            self.myfont = pygame.font.SysFont('Comic Sans MS', round(self.HEIGHT/5))
+
+            ExitText = self.myfont.render('EXIT', False, self.NON_ACTIVE_BUTTON_COLOR)
+            self.screen.blit(ExitText,(self.WIDTH/3, (self.HEIGHT/5)*3))
+        else:
+            self.myfont = pygame.font.SysFont('Comic Sans MS', round(self.HEIGHT/10))
+            ScoreText = self.myfont.render('Your score is:', False, self.NON_ACTIVE_BUTTON_COLOR)
+            Score = self.myfont.render(str(score), False, self.NON_ACTIVE_BUTTON_COLOR)
+            self.screen.blit(ScoreText,(self.WIDTH/3, self.HEIGHT/10))
+            self.screen.blit(Score,(self.WIDTH/3, self.HEIGHT/5))
+
+            self.myfont = pygame.font.SysFont('Comic Sans MS', round(self.HEIGHT/5))
 
             ExitText = self.myfont.render('EXIT', False, self.ACTIVE_BUTTON_COLOR)
             self.screen.blit(ExitText,(self.WIDTH/3, (self.HEIGHT/5)*3))

@@ -27,6 +27,7 @@ class Game:
         self.__startTimeColorChange = time.perf_counter()
         self.__madePoint = False
         self.__colorChange = False
+        self.__score = 0
     
     def update(self):
         keys = pygame.key.get_pressed()
@@ -51,6 +52,7 @@ class Game:
         self.__draw.draw(self.__snake, self.__candy, self.__pongPallet, self.__colorChange)
         if self.__madePoint:
             self.__candy = CandyBall()
+            self.__score += 1
             self.__madePoint = False
         if time.perf_counter() - self.__startTimeColorChange > 0.6:
             self.__colorChange = False
@@ -63,8 +65,8 @@ class Game:
             self.bounceCandy()
             self.__startTimeBall = time.perf_counter()
     
-    def stop(self):
-        return
+    def getScore(self):
+        return self.__score
     
     def __candyEaten(self):
         (xSnake, ySnake) = self.__snake.get().front()
