@@ -38,3 +38,7 @@ Ook zou ik twee nieuwe klasses moeten maken:
     * Hierin zou de game logica van Pong moeten gemaakt worden.
 * Klasse PongPallet:
     * Hierin zou de logica voor de palletjes van Pong moeten zitten.
+
+# Blokdiagramma
+Hieronder vind je het blokdiagramma.
+![Block diagramma SnakePong](./img/DiagramSnakePong.svg)
