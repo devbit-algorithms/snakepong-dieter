@@ -24,6 +24,9 @@ class Game:
         self.__startTime = time.perf_counter()
         self.__startTimeBall = time.perf_counter()
         self.__startTimePallet = time.perf_counter()
+        self.__startTimeColorChange = time.perf_counter()
+        self.__madePoint = False
+        self.__colorChange = False
     
     def update(self):
         keys = pygame.key.get_pressed()
@@ -45,7 +48,12 @@ class Game:
             if(self.__snake.collision() or self.__snake.collisionWalls() or self.collisionPallet()):
                 pygame.event.post(pygame.event.Event(GAMEOVER))
             self.__startTime = time.perf_counter()
-        self.__draw.draw(self.__snake, self.__candy, self.__pongPallet)
+        self.__draw.draw(self.__snake, self.__candy, self.__pongPallet, self.__colorChange)
+        if self.__madePoint:
+            self.__candy = CandyBall()
+            self.__madePoint = False
+        if time.perf_counter() - self.__startTimeColorChange > 0.6:
+            self.__colorChange = False
         
         if time.perf_counter() - self.__startTimePallet > 0.1:
             self.__pongPallet.move(self.__candy.coordinate())
@@ -76,8 +84,10 @@ class Game:
     def bounceCandy(self):
         (x, y) = self.__candy.coordinate()
         yPallet = self.__pongPallet.get()
-        if round(x) < 1:
-            pygame.event.post(pygame.event.Event(GAMEOVER))
+        if x < 0.3: # Value found by trail and error
+            self.__madePoint = True
+            self.__colorChange = True
+            self.__startTimeColorChange = time.perf_counter()
         elif round(x) < 2:
             if y < (yPallet + Draw.PALLET_LENGTH) and y > yPallet:
                 angle = self.__candy.getAngle()

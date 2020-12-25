@@ -5,7 +5,7 @@ import random
 
 class PongPallet:
     def __init__(self):
-        self.__y = random.randrange(0, (Draw.HEIGHT/Draw.PIXEL_SIZE) - Draw.PALLET_LENGTH)
+        self.__y = random.randrange(0, round((Draw.HEIGHT/Draw.PIXEL_SIZE) - Draw.PALLET_LENGTH))
         self.__direction = Direction.UP
     
     def get(self):

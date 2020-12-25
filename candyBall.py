@@ -22,23 +22,21 @@ class CandyBall:
         return self.__coordinate
     
     def move(self):
-        self.bounceOfWalls()
         (x, y) = self.__coordinate
         x += math.sin(math.radians(self.__angle))
         y += math.cos(math.radians(self.__angle))
         self.__coordinate = (x, y)
+        self.bounceOfWalls()
     
     def bounceOfWalls(self):
         (x, y) = self.__coordinate
-        if(x < 0 and self.__angle > 180):
-            pygame.event.post(pygame.event.Event(GAMEOVER))
-        elif(x >= Draw.WIDTH/Draw.PIXEL_SIZE - 1 and self.__angle < 180):
+        if(x >= Draw.WIDTH/Draw.PIXEL_SIZE - 1 and self.__angle < 180):
             self.__angle = 360 - self.__angle
         elif(y >= Draw.HEIGHT/Draw.PIXEL_SIZE - 1 and (self.__angle < 90 or self.__angle > 270)):
             self.__angle = 180 - self.__angle
             if(self.__angle < 0):
                 self.__angle = 180 + (360 - (-1*self.__angle + 180))
-        elif(y < 0 and self.__angle > 90 and self.__angle < 270):
+        elif(y <= 0 and self.__angle > 90 and self.__angle < 270):
             self.__angle = 180 - self.__angle
             if(self.__angle < 0):
                 self.__angle = 180 + (360 - (-1*self.__angle + 180))
