@@ -41,4 +41,5 @@ Ook zou ik twee nieuwe klasses moeten maken:
 
 # Blokdiagramma
 Hieronder vind je het blokdiagramma.
+
 ![Block diagramma SnakePong](./img/DiagramSnakePong.svg)
